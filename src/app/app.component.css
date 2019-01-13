@@ -1,0 +1,12 @@
+.weatherSearch, .weatherInfo{
+    border: 1px solid #990000;
+    padding: 25px;
+    background: #fff;
+    box-shadow: 1px -1px 6px #ccc;
+}
+
+main{
+   position: fixed;
+   left: 20px;
+   bottom: 20px;
+}

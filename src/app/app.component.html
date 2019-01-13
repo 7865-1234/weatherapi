@@ -1,0 +1,89 @@
+<section class="container">
+  <div class="row mt-5">
+    <div class="col-lg-4 weatherSearch">
+      <h1>
+        Weather API
+      </h1>
+        <form>
+          <div class="form-group">
+            <label for="citi">Type any city/country/place name</label>
+            <input name="place" #placeName 
+            type="text" class="form-control" id="citi" aria-describedby="emailHelp" 
+            placeholder="Enter a place name">
+            <div [hidden]="errorMsg"
+                class="alert alert-danger">
+              Please enter place name.
+            </div>
+            <small id="emailHelp" class="form-text text-muted">
+              Know the weather report searching a place name.
+            </small>
+          </div>
+          <button type="button" class="btn btn-primary" (click)="getWheatherReport(placeName.value)">Search/Forecast</button>
+        </form>
+    </div>
+
+    <div class="col-lg-7 offset-lg-1 weatherInfo" *ngIf="currentWeatherInfo?.name">
+      <div class="row">
+        <div class="col text-center">
+          <h2 class="border-bottom">{{currentWeatherInfo?.name}}</h2>
+        </div>
+      </div>
+
+      <div class="row currentInfo border-bottom pb-1 mb-1 align-items-center justify-content-center">
+        <div class="col-4 text-center">
+          <h5 class="mb-0">Todays</h5>
+          <h5 class="mb-0">Weather</h5>
+        </div>
+        <div class="col-4 text-center">
+          <p class="mb-0">
+            <span >Pressure- &nbsp;</span>
+            <span>{{currentWeatherInfo?.main.pressure}}</span>
+            <span>hpa</span>
+          </p>
+          <p class="mb-0">
+            <span>Humidity- &nbsp;</span>
+            <span>{{currentWeatherInfo?.main.humidity}}</span>
+            <span>%</span>
+          </p>
+        </div>
+        <div class="col-4 text-center">
+          <p class="mb-0">
+            <span>Max &nbsp;</span>
+            <span>{{currentWeatherInfo?.main.temp_max}}</span>
+            <sup>o</sup>
+          </p>
+          <h2 class="mb-0">
+            <span>{{currentWeatherInfo?.main.temp}}</span>
+            <sup>o</sup><span>C</span>
+          </h2>
+          <p class="mb-0">
+            <span>Min &nbsp;</span>
+            <span>{{currentWeatherInfo?.main.temp_min}}</span>
+            <sup>o</sup>
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-1"></div>
+        <ng-container *ngFor="let info of forecastInfo?.list">
+          <div class="col-2 p-0 pt-3 text-center border border-warning" *ngIf="info.dt_txt.includes('12:00:00')">
+              <p>{{ info.dt_txt.substr(0, 11) }}</p>
+              <p>
+                <strong>
+                    {{ info.weather[0].description }}
+                </strong>
+              </p>
+              <p>{{ info.main.temp_min }} <sup>o</sup>C</p>
+              <p class="text-info">{{ info.main.temp_max }} <sup>o</sup>C</p>           
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+  * Above data unit are not accurate. Only to demonenstrate how to populate data.
+</main>
+
